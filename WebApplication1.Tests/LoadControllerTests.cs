@@ -1,20 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
+using ApprovalTests;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using WebApplication1.Controllers;
+using Newtonsoft.Json.Linq;
 
 namespace WebApplication1.Tests
 {
     [TestClass]
-    public class Record_load_for_a_given_server
+    public class LoadControllerTests
     {
         [TestMethod]
-        public async Task Post_()
+        public async Task Post_and_retrieve_data()
         {
             var client = TestUtilities.CreateTestHttpClient();
 
@@ -23,8 +25,22 @@ namespace WebApplication1.Tests
                 {
                     CpuLoad = 0.10,
                     RamLoad = 0.20,
-                }
-                )).EnsureSuccessStatusCode();
+                })).EnsureSuccessStatusCode();
+
+            var response = (await client.GetAsync("/api/Load/server1")).EnsureSuccessStatusCode();
+            var content = await response.Content.ReadAsStringAsync();
+
+            content.Should().StartWith("{\"last60Minutes\":[{\"TimeBin\":\"2016");
+        }
+
+        [TestMethod]
+        public async Task Get_should_return_NotFound_for_no_data()
+        {
+            var client = TestUtilities.CreateTestHttpClient();
+
+            (await client.GetAsync("/api/Load/server99"))
+                .StatusCode
+                .Should().Be(HttpStatusCode.NotFound);
         }
 
         [TestMethod]
