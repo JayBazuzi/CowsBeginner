@@ -18,7 +18,7 @@ namespace WebApplication1.Tests
         {
             var client = TestUtilities.CreateTestHttpClient();
 
-            (await client.PostAsJsonAsync<LoadController.CpuAndRamLoad>("/api/Load/server1",
+            (await client.PostAsJsonAsync("/api/Load/server1",
                 new LoadController.CpuAndRamLoad
                 {
                     CpuLoad = 0.10,
