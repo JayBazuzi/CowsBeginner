@@ -14,15 +14,21 @@ namespace WebApplication1.Tests
         [TestMethod]
         public async Task SanityTest()
         {
-            var configuration = new HttpConfiguration();
-            WebApiConfig.Register(configuration);
-            var httpClient = new HttpClient(new HttpServer(configuration));
+            var client = CreateTestHttpClient();
 
             IEnumerable<string> results;
-            (await httpClient.GetAsync("http://example.com/api/values")).EnsureSuccessStatusCode()
+            (await client.GetAsync("http://example.com/api/values")).EnsureSuccessStatusCode()
                 .TryGetContentValue(out results)
                 .Should().BeTrue();
             results.Should().BeEquivalentTo("value1", "value2");
+        }
+
+        private static HttpClient CreateTestHttpClient()
+        {
+            var configuration = new HttpConfiguration();
+            WebApiConfig.Register(configuration);
+            var httpClient = new HttpClient(new HttpServer(configuration));
+            return httpClient;
         }
     }
 }
