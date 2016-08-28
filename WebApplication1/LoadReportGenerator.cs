@@ -18,7 +18,7 @@ namespace WebApplication1
                 .Select(
                     grouping => new LoadController.TimeBinAndAverageCpuAndRamLoad
                     {
-                        TimeBin = grouping.Key,
+                        TimeBin = grouping.Key.ToUniversalTime(),
                         AverageCpuLoad = grouping.Select(_ => _.Data.CpuLoad.Value).Average(),
                         AverageRamLoad = grouping.Select(_ => _.Data.RamLoad.Value).Average(),
                     });
