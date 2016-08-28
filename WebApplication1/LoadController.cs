@@ -23,7 +23,14 @@ namespace WebApplication1
         [Route("{serverName}")]
         public void Post(string serverName, [FromBody] CpuAndRamLoad body)
         {
-            TimeStampedCpuAndRamLoadByServerName.GetOrAdd(serverName).Add(new TimeStamped<CpuAndRamLoad>(DateTimeOffset.Now, body));
+            TimeStampedCpuAndRamLoadByServerName.GetOrAdd(
+                    serverName,
+                    () => new TimeLimitedList<CpuAndRamLoad>()
+                )
+                .AddAndRemoveOld(
+                    DateTimeOffset.Now,
+                    body,
+                    DateTimeOffset.Now - maxDataAge);
         }
 
         [Route("{serverName}")]
@@ -34,21 +41,29 @@ namespace WebApplication1
                 return NotFound();
             }
 
-            var last60Minutes = LoadReportGenerator.SummarizeByTimeBin(TimeStampedCpuAndRamLoadByServerName[serverName],
-                DateTimeOffset.Now - TimeSpan.FromMinutes(60), TimeSpan.FromMinutes(1));
+            var last60Minutes = LoadReportGenerator.SummarizeByTimeBin(
+                TimeStampedCpuAndRamLoadByServerName[serverName],
+                DateTimeOffset.Now - TimeSpan.FromMinutes(60),
+                TimeSpan.FromMinutes(1));
 
-            var last24Hours = LoadReportGenerator.SummarizeByTimeBin(TimeStampedCpuAndRamLoadByServerName[serverName],
-                DateTimeOffset.Now - TimeSpan.FromHours(24), TimeSpan.FromHours(1));
+            var last24Hours = LoadReportGenerator.SummarizeByTimeBin(
+                TimeStampedCpuAndRamLoadByServerName[serverName],
+                DateTimeOffset.Now - TimeSpan.FromHours(24),
+                TimeSpan.FromHours(1));
 
-            return Ok(new
-            {
-                last60Minutes,
-                last24Hours,
-            });
+            return Ok(
+                new
+                {
+                    last60Minutes,
+                    last24Hours,
+                });
         }
 
-        private static readonly Dictionary<string, List<TimeStamped<CpuAndRamLoad>>> TimeStampedCpuAndRamLoadByServerName =
-            new Dictionary<string, List<TimeStamped<CpuAndRamLoad>>>();
+        private static readonly Dictionary<string, TimeLimitedList<CpuAndRamLoad>> TimeStampedCpuAndRamLoadByServerName
+            =
+            new Dictionary<string, TimeLimitedList<CpuAndRamLoad>>();
+
+        private static readonly TimeSpan maxDataAge = TimeSpan.FromHours(25);
 
         public class TimeBinAndAverageCpuAndRamLoad
         {

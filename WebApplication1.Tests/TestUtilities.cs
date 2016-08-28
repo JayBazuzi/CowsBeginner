@@ -28,7 +28,8 @@ namespace WebApplication1.Tests
         {
         }
 
-        protected override async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request,
+        protected override async Task<HttpResponseMessage> SendAsync(
+            HttpRequestMessage request,
             CancellationToken cancellationToken)
         {
             Debug.WriteLine($"REQUEST URI: {request.RequestUri}");
@@ -36,7 +37,6 @@ namespace WebApplication1.Tests
             {
                 Debug.WriteLine($"REQUEST CONTENT: {await request.Content.ReadAsStringAsync()}");
             }
-
 
             var response = await base.SendAsync(request, cancellationToken);
 

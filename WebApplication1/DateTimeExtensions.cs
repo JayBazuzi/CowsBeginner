@@ -12,7 +12,8 @@ namespace WebApplication1
         }
 
         public static IEnumerable<IGrouping<DateTimeOffset, TimeStamped<T>>> GroupByTimeBin<T>(
-            this IEnumerable<TimeStamped<T>> source, TimeSpan binSize)
+            this IEnumerable<TimeStamped<T>> source,
+            TimeSpan binSize)
         {
             return source.GroupBy(_ => _.TimeStamp.FloorBy(binSize));
         }

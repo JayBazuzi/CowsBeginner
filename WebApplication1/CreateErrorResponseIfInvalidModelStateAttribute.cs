@@ -11,7 +11,8 @@ namespace WebApplication1
         {
             if (!actionContext.ModelState.IsValid)
             {
-                actionContext.Response = actionContext.Request.CreateErrorResponse(HttpStatusCode.BadRequest,
+                actionContext.Response = actionContext.Request.CreateErrorResponse(
+                    HttpStatusCode.BadRequest,
                     actionContext.ModelState);
             }
         }
