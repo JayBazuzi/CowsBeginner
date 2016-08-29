@@ -44,6 +44,10 @@
       <HintPath>..\packages\ApprovalUtilities.3.0.11\lib\net45\ApprovalUtilities.Net45.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Bazuzi.ValueTypeAssertions, Version=0.0.25.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Bazuzi.ValueTypeAssertions.0.0.25-beta\lib\net452\Bazuzi.ValueTypeAssertions.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="FluentAssertions, Version=4.13.0.0, Culture=neutral, PublicKeyToken=33f2691a05b67b6a, processorArchitecture=MSIL">
       <HintPath>..\packages\FluentAssertions.4.13.0\lib\net45\FluentAssertions.dll</HintPath>
       <Private>True</Private>
@@ -89,6 +93,7 @@
   <ItemGroup>
     <Compile Include="DateTimeExtensionsTests.cs" />
     <Compile Include="LoadReportGeneratorTests.cs" />
+    <Compile Include="ServerNameTests.cs" />
     <Compile Include="TestUtilities.cs" />
     <Compile Include="LoadControllerTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

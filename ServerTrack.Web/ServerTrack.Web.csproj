@@ -107,6 +107,7 @@
     </Compile>
     <Compile Include="LoadReportGenerator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ServerName.cs" />
     <Compile Include="Timestamped.cs" />
     <Compile Include="TimeLimitedList.cs" />
   </ItemGroup>

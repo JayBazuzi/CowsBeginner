@@ -27,7 +27,7 @@ namespace ServerTrack.Web
         public void Post(string serverName, [FromBody] CpuAndRamLoad body)
         {
             TimeStampedCpuAndRamLoadByServerName.GetOrAdd(
-                    serverName,
+                    new ServerName(serverName),
                     _ => new TimeLimitedList<CpuAndRamLoad>()
                 )
                 .AddAndRemoveOld(
@@ -45,18 +45,18 @@ namespace ServerTrack.Web
         [Route("{serverName}")]
         public IHttpActionResult Get(string serverName)
         {
-            if (!TimeStampedCpuAndRamLoadByServerName.ContainsKey(serverName))
+            if (!TimeStampedCpuAndRamLoadByServerName.ContainsKey(new ServerName(serverName)))
             {
                 return NotFound();
             }
 
             var last60Minutes = LoadReportGenerator.SummarizeByTimeBin(
-                TimeStampedCpuAndRamLoadByServerName[serverName],
+                TimeStampedCpuAndRamLoadByServerName[new ServerName(serverName)],
                 DateTimeOffset.Now - TimeSpan.FromMinutes(60),
                 TimeSpan.FromMinutes(1));
 
             var last24Hours = LoadReportGenerator.SummarizeByTimeBin(
-                TimeStampedCpuAndRamLoadByServerName[serverName],
+                TimeStampedCpuAndRamLoadByServerName[new ServerName(serverName)],
                 DateTimeOffset.Now - TimeSpan.FromHours(24),
                 TimeSpan.FromHours(1));
 
@@ -68,10 +68,9 @@ namespace ServerTrack.Web
                 });
         }
 
-        private static readonly ConcurrentDictionary<string, TimeLimitedList<CpuAndRamLoad>>
-            TimeStampedCpuAndRamLoadByServerName
+        private static readonly ConcurrentDictionary<ServerName, TimeLimitedList<CpuAndRamLoad>> TimeStampedCpuAndRamLoadByServerName
                 =
-                new ConcurrentDictionary<string, TimeLimitedList<CpuAndRamLoad>>();
+                new ConcurrentDictionary<ServerName, TimeLimitedList<CpuAndRamLoad>>();
 
         private static readonly TimeSpan MaxDataAge = TimeSpan.FromHours(25);
 
