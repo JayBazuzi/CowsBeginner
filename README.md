@@ -1,3 +1,5 @@
+[![Build status](https://ci.appveyor.com/api/projects/status/oydxb8mmr1p52jxq?svg=true)](https://ci.appveyor.com/project/JayBazuzi/cowsbeginner)
+
 ServerTrack 
 ========
 
