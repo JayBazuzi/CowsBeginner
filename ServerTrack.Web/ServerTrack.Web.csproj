@@ -95,7 +95,6 @@
   <ItemGroup>
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="CreateErrorResponseIfInvalidModelStateAttribute.cs" />
-    <Compile Include="DictionaryExtensions.cs" />
     <Compile Include="LoadController.cs" />
     <Compile Include="CreateErrorResponseIfUnsetActionArgumentsAttribute.cs" />
     <Compile Include="DateTimeExtensions.cs" />

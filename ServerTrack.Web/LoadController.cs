@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -25,12 +26,18 @@ namespace ServerTrack.Web
         {
             TimeStampedCpuAndRamLoadByServerName.GetOrAdd(
                     serverName,
-                    () => new TimeLimitedList<CpuAndRamLoad>()
+                    _ => new TimeLimitedList<CpuAndRamLoad>()
                 )
                 .AddAndRemoveOld(
                     DateTimeOffset.Now,
                     body,
                     DateTimeOffset.Now - maxDataAge);
+        }
+
+        public class LoadSummary
+        {
+            public IEnumerable<LoadController.TimeBinAndAverageCpuAndRamLoad> last60Minutes { get; set; }
+            public IEnumerable<LoadController.TimeBinAndAverageCpuAndRamLoad> last24Hours { get; set; }
         }
 
         [Route("{serverName}")]
@@ -52,16 +59,16 @@ namespace ServerTrack.Web
                 TimeSpan.FromHours(1));
 
             return Ok(
-                new
+                new LoadSummary
                 {
-                    last60Minutes,
-                    last24Hours,
+                    last60Minutes = last60Minutes,
+                    last24Hours = last24Hours,
                 });
         }
 
-        private static readonly Dictionary<string, TimeLimitedList<CpuAndRamLoad>> TimeStampedCpuAndRamLoadByServerName
+        private static readonly ConcurrentDictionary<string, TimeLimitedList<CpuAndRamLoad>> TimeStampedCpuAndRamLoadByServerName
             =
-            new Dictionary<string, TimeLimitedList<CpuAndRamLoad>>();
+            new ConcurrentDictionary<string, TimeLimitedList<CpuAndRamLoad>>();
 
         private static readonly TimeSpan maxDataAge = TimeSpan.FromHours(25);
 
