@@ -1,16 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Net;
 using System.Net.Http;
-using System.Threading;
 using System.Threading.Tasks;
-using System.Web.Http;
 using System.Web.Http.Results;
-using ApprovalTests;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Newtonsoft.Json.Linq;
 
 namespace ServerTrack.Web.Tests
 {
@@ -33,8 +27,8 @@ namespace ServerTrack.Web.Tests
             var response = (await client.GetAsync("/api/Load/server1")).EnsureSuccessStatusCode();
             var result = await response.Content.ReadAsAsync<LoadController.LoadSummary>();
 
-            result.last24Hours.Single().AverageCpuLoad.Should().Be(0.10);
-            result.last24Hours.Single().AverageRamLoad.Should().Be(0.20);
+            result.Last24Hours.Single().AverageCpuLoad.Should().Be(0.10);
+            result.Last24Hours.Single().AverageRamLoad.Should().Be(0.20);
         }
 
         [TestMethod]
@@ -42,7 +36,7 @@ namespace ServerTrack.Web.Tests
         {
             new LoadController().Post("server1", new LoadController.CpuAndRamLoad {CpuLoad = 0.10, RamLoad = 0.20,});
             var result = ((OkNegotiatedContentResult<LoadController.LoadSummary>) new LoadController().Get("server1")).Content;
-            result.last24Hours.Should().ContainSingle();
+            result.Last24Hours.Should().ContainSingle();
         }
 
         [TestMethod]

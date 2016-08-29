@@ -12,7 +12,8 @@ namespace ServerTrack.Web
         {
             var unsetActionArgumentNames = actionContext.ActionArguments
                 .Where(_ => _.Value == null)
-                .Select(_ => _.Key);
+                .Select(_ => _.Key)
+                .ToList();
             if (unsetActionArgumentNames.Any())
             {
                 actionContext.Response = actionContext.Request.CreateErrorResponse(

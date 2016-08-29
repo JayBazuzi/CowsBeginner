@@ -2,8 +2,8 @@
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
 using System.Web.Http;
+using JetBrains.Annotations;
 
 namespace ServerTrack.Web
 {
@@ -15,9 +15,11 @@ namespace ServerTrack.Web
         public class CpuAndRamLoad
         {
             [Required]
+            [NotNull]
             public double? CpuLoad { get; set; }
 
             [Required]
+            [NotNull]
             public double? RamLoad { get; set; }
         }
 
@@ -31,13 +33,13 @@ namespace ServerTrack.Web
                 .AddAndRemoveOld(
                     DateTimeOffset.Now,
                     body,
-                    DateTimeOffset.Now - maxDataAge);
+                    DateTimeOffset.Now - MaxDataAge);
         }
 
         public class LoadSummary
         {
-            public IEnumerable<LoadController.TimeBinAndAverageCpuAndRamLoad> last60Minutes { get; set; }
-            public IEnumerable<LoadController.TimeBinAndAverageCpuAndRamLoad> last24Hours { get; set; }
+            public IEnumerable<TimeBinAndAverageCpuAndRamLoad> Last60Minutes { get; set; }
+            public IEnumerable<TimeBinAndAverageCpuAndRamLoad> Last24Hours { get; set; }
         }
 
         [Route("{serverName}")]
@@ -61,16 +63,17 @@ namespace ServerTrack.Web
             return Ok(
                 new LoadSummary
                 {
-                    last60Minutes = last60Minutes,
-                    last24Hours = last24Hours,
+                    Last60Minutes = last60Minutes,
+                    Last24Hours = last24Hours
                 });
         }
 
-        private static readonly ConcurrentDictionary<string, TimeLimitedList<CpuAndRamLoad>> TimeStampedCpuAndRamLoadByServerName
-            =
-            new ConcurrentDictionary<string, TimeLimitedList<CpuAndRamLoad>>();
+        private static readonly ConcurrentDictionary<string, TimeLimitedList<CpuAndRamLoad>>
+            TimeStampedCpuAndRamLoadByServerName
+                =
+                new ConcurrentDictionary<string, TimeLimitedList<CpuAndRamLoad>>();
 
-        private static readonly TimeSpan maxDataAge = TimeSpan.FromHours(25);
+        private static readonly TimeSpan MaxDataAge = TimeSpan.FromHours(25);
 
         public class TimeBinAndAverageCpuAndRamLoad
         {
