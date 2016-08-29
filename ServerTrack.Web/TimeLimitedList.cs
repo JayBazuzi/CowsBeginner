@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 
-namespace WebApplication1
+namespace ServerTrack.Web
 {
     public class TimeLimitedList<T> : IEnumerable<TimeStamped<T>>
     {

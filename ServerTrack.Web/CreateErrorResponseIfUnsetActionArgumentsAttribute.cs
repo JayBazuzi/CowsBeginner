@@ -4,7 +4,7 @@ using System.Net.Http;
 using System.Web.Http.Controllers;
 using System.Web.Http.Filters;
 
-namespace WebApplication1
+namespace ServerTrack.Web
 {
     public class CreateErrorResponseIfUnsetActionArgumentsAttribute : ActionFilterAttribute
     {

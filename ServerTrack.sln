@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApplication1", "WebApplication1\WebApplication1.csproj", "{DD23ACB4-8FF1-40CA-AD8F-DE020F4F35AC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServerTrack.Web", "ServerTrack.Web\ServerTrack.Web.csproj", "{DD23ACB4-8FF1-40CA-AD8F-DE020F4F35AC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApplication1.Tests", "WebApplication1.Tests\WebApplication1.Tests.csproj", "{659D4778-4F66-4C40-851E-76EFDF8DDB01}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServerTrack.Web.Tests", "ServerTrack.Web.Tests\ServerTrack.Web.Tests.csproj", "{659D4778-4F66-4C40-851E-76EFDF8DDB01}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{6B7B771A-6054-4633-82EA-495CDDAC5996}"
 	ProjectSection(SolutionItems) = preProject

@@ -5,7 +5,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Web.Http;
 
-namespace WebApplication1.Tests
+namespace ServerTrack.Web.Tests
 {
     public class TestUtilities
     {

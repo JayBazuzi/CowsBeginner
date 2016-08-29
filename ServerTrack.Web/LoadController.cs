@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web.Http;
 
-namespace WebApplication1
+namespace ServerTrack.Web
 {
     [CreateErrorResponseIfInvalidModelState]
     [CreateErrorResponseIfUnsetActionArguments]

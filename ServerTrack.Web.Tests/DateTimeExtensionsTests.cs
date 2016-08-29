@@ -2,7 +2,7 @@
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace WebApplication1.Tests
+namespace ServerTrack.Web.Tests
 {
     [TestClass]
     public class DateTimeExtensionsTests

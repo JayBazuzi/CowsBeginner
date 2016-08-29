@@ -10,7 +10,7 @@ using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Newtonsoft.Json.Linq;
 
-namespace WebApplication1.Tests
+namespace ServerTrack.Web.Tests
 {
     [TestClass]
     public class LoadControllerTests

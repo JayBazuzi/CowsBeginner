@@ -6,8 +6,8 @@
     <ProjectGuid>{659D4778-4F66-4C40-851E-76EFDF8DDB01}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>WebApplication1.Tests</RootNamespace>
-    <AssemblyName>WebApplication1.Tests</AssemblyName>
+    <RootNamespace>ServerTrack.Web.Tests</RootNamespace>
+    <AssemblyName>ServerTrack.Web.Tests</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -96,9 +96,9 @@
     <Compile Include="TimeLimitedListTests.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\WebApplication1\WebApplication1.csproj">
+    <ProjectReference Include="..\ServerTrack.Web\ServerTrack.Web.csproj">
       <Project>{DD23ACB4-8FF1-40CA-AD8F-DE020F4F35AC}</Project>
-      <Name>WebApplication1</Name>
+      <Name>ServerTrack.Web</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
